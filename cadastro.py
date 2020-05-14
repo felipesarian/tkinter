@@ -16,12 +16,16 @@ def getvalues(entry1, entry2, entry3):
 
 def submit():
     print('Clicou submit')
+    arquivo_users_leitura = open('users.pickle', 'rb')
+    users = pickle.load(arquivo_users_leitura)
+    arquivo_users_leitura.close()
     arquivo_users = open('users.pickle', 'wb')
     username, password, confirmpassword = getvalues(
         nomeescrever, senhaescrever, senhaconfirmar)
     if password == confirmpassword:
         print('ok')
-        users = {'username': 'felipe', 'senha': '123'}
+        user = {'username': username, 'senha': password}
+        users.append(user)
         pickle.dump(users, arquivo_users)
     else:
         print('as senhas nao sao iguais')
