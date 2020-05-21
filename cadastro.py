@@ -1,17 +1,22 @@
 import tkinter as tk
 import pickle
+from user import User
 
 window = tk.Tk()
-window.geometry('400x400')
+window.geometry('400x600')
 window.title("TELA DE CADASTRO")
 
 
-def getvalues(entry1, entry2, entry3):
-    nomeusuario = entry1.get()
-    senhausuario = entry2.get()
-    confirmacaosenha = entry3.get()
+def getvalues(nome, senha, confirmsenha, email, cpf, telefone):
+    nomeusuario = nome.get()
+    senhausuario = senha.get()
+    confirmacaosenha = confirmsenha.get()
+    email = email.get()
+    cpf = cpf.get()
+    telefone = telefone.get()
 
-    return [nomeusuario, senhausuario, confirmacaosenha]
+
+    return [nomeusuario, senhausuario, confirmacaosenha, email, cpf, telefone]
 
 
 def submit():
@@ -20,11 +25,11 @@ def submit():
     users = pickle.load(arquivo_users_leitura)
     arquivo_users_leitura.close()
     arquivo_users = open('users.pickle', 'wb')
-    username, password, confirmpassword = getvalues(
-        nomeescrever, senhaescrever, senhaconfirmar)
+    username, password, confirmpassword, email, cpf, telefone = getvalues(
+        nomeescrever, senhaescrever, senhaconfirmar, emailescrever, cpfescrever, telefoneescrever)
     if password == confirmpassword:
         print('ok')
-        user = {'username': username, 'senha': password}
+        user = User(username, password, email, cpf, telefone)
         users.append(user)
         pickle.dump(users, arquivo_users)
     else:
@@ -53,7 +58,22 @@ senhaconfirmar = tk.Entry(window)
 senhaconfirmar.config(show='*')
 senhaconfirmar.grid(column=1, row=10)
 
+email = tk.Label(window, text='Email:', font=('Arial Bold', 20))
+email.grid(column=1, row=12)
+emailescrever = tk.Entry(window)
+emailescrever.grid(column=1, row=13)
+
+cpf = tk.Label(window, text='CPF:', font=('Arial Bold', 20))
+cpf.grid(column=1, row=15)
+cpfescrever = tk.Entry(window)
+cpfescrever.grid(column=1, row=16)
+
+telefone = tk.Label(window, text='Número de telefone:', font=('Arial Bold', 20))
+telefone.grid(column=1, row=18)
+telefoneescrever = tk.Entry(window)
+telefoneescrever.grid(column=1, row=19)
+
 
 enter = tk.Button(window, text='Cadastrar-se', command=submit)
-enter.grid(column=1, row=12)
+enter.grid(column=1, row=21)
 window.mainloop()

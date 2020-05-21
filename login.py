@@ -1,5 +1,6 @@
 import tkinter as tk
 import pickle
+from user import User
 
 window = tk.Tk()
 window.geometry('400x400')
@@ -27,12 +28,13 @@ def submit():
     arquivo_users.close()
     print(users)
     validusername = False
+    print(users)
     for user in users:
-        if user["username"] == username:
+        if user.username == username:
             print("AAAA")
             validusername = True
-            if password == user["senha"]:
-                print('ok')
+            if user.senha == password:
+                print(user.username, '\n', user.senha, '\n', user.email, '\n', user.cpf, '\n', user.telefone)
             else:
                 print('senha não corresponde eo usuario')
     if not validusername:
