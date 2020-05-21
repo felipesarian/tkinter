@@ -6,16 +6,18 @@ window.geometry('400x400')
 window.title("Welcome TKInter")
 
 nomeescrever = tk.Entry(window)
-nomeescrever.grid(column = 1, row = 4)
+nomeescrever.grid(column=1, row=4)
 
 senhaescrever = tk.Entry(window)
-senhaescrever.config(show = '*')
-senhaescrever.grid(column = 1, row = 7)
+senhaescrever.config(show='*')
+senhaescrever.grid(column=1, row=7)
+
 
 def getvalues(entry1, entry2):
     nomeusuario = entry1.get()
     senhausuario = entry2.get()
     return [nomeusuario, senhausuario]
+
 
 def submit():
     print('Clicou submit')
@@ -26,26 +28,27 @@ def submit():
     print(users)
     validusername = False
     for user in users:
-        if user[0] == username:
+        if user["username"] == username:
+            print("AAAA")
             validusername = True
-            if password == users[username]:
+            if password == user["senha"]:
                 print('ok')
             else:
                 print('senha não corresponde eo usuario')
     if not validusername:
         print('usuario invalido')
-    
+
 
 titulo = tk.Label(window, text='Log-in', font=('Arial Bold', 50))
-titulo.grid(column = 1, row = 0)
+titulo.grid(column=1, row=0)
 
 nome = tk.Label(window, text='Nome de usuário:', font=('Arial Bold', 20))
-nome.grid(column = 1, row = 3)  
+nome.grid(column=1, row=3)
 
 senha = tk.Label(window, text='Senha:', font=('Arial Bold', 20))
-senha.grid(column = 1, row = 6)
+senha.grid(column=1, row=6)
 
-enter = tk.Button(window, text='Enter', command = submit)
-enter.grid(column = 1, row = 9)
+enter = tk.Button(window, text='Enter', command=submit)
+enter.grid(column=1, row=9)
 
 window.mainloop()
