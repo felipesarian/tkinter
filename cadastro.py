@@ -43,35 +43,42 @@ class Cadastro:
         self.telefoneescrever = Entry(window_cadastro)
         self.telefoneescrever.grid(column=1, row=19)
 
-        enter = Button(window_cadastro, text='Cadastrar-se', command=self.submit())
+        enter = Button(window_cadastro, text='Cadastrar-se', command=self.submit)
         enter.grid(column=1, row=21)
 
     def getvalues(self):
-        print(self.nomeescrever.get())
-        # nomeusuario = self.nomeescrever.get()
-        # senhausuario = self.senhaescrever.get()
-        # confirmacaosenha = self.senhaconfirmar.get()
-        # email = self.emailescrever.get()
-        # cpf = self.cpfescrever.get()
-        # telefone = self.telefoneescrever.get()
-        # return [nomeusuario, senhausuario, confirmacaosenha, email, cpf, telefone]
+        nomeusuario = self.nomeescrever.get()
+        senhausuario = self.senhaescrever.get()
+        confirmacaosenha = self.senhaconfirmar.get()
+        email = self.emailescrever.get()
+        cpf = self.cpfescrever.get()
+        telefone = self.telefoneescrever.get()
+        return [nomeusuario, senhausuario, confirmacaosenha, email, cpf, telefone]
 
 
     def submit(self):
-        print(self.getvalues())
-        # arquivo_users_leitura = open('users.pickle', 'rb')
-        # users = pickle.load(arquivo_users_leitura)
-        # arquivo_users_leitura.close()
+        arquivo_users_leitura = open('users.pickle', 'rb')
+        users = pickle.load(arquivo_users_leitura)
+        # print(users)
+        arquivo_users_leitura.close()
+        arquivo_users = open('users.pickle', 'wb')
+        username, password, confirmpassword, email, cpf, telefone = self.getvalues()
+        if password == confirmpassword:
+            print('ok')
+            user = User(username, password, email, cpf, telefone)
+            users.append(user)
+            pickle.dump(users, arquivo_users)
+        else:
+            print('as senhas nao sao iguais')
+
+        # CODE SNIPPET TO REMAKE CORRUPTED .PICKLE FILE
         # arquivo_users = open('users.pickle', 'wb')
-        # username, password, confirmpassword, email, cpf, telefone = self.getvalues()
-        # if password == confirmpassword:
-        #     print('ok')
-        #     user = User(username, password, email, cpf, telefone)
-        #     users.append(user)
-        #     pickle.dump(users, arquivo_users)
-        # else:
-        #     print('as senhas nao sao iguais')
-        # arquivo_users.close()
+        # user = User("Warlen", "123", "warlen@eu.com", "1234567890", "11987022199")
+        # users = [user]
+        # pickle.dump(users, arquivo_users)
+
+        arquivo_users.close()
+
 
 root = Tk()
 minhainterface = Cadastro(root)
