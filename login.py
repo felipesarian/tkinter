@@ -1,6 +1,6 @@
 # coding: utf-8
 
-import tkinter as tk
+from tkinter import *
 import pickle
 from user import User
 
@@ -10,23 +10,23 @@ class Login:
         window.geometry('400x400')
         window.title("Welcome TKInter")
 
-        self.nomeescrever = tk.Entry(window)
+        self.nomeescrever = Entry(window)
         self.nomeescrever.grid(column=1, row=4)
 
-        self.senhaescrever = tk.Entry(window)
+        self.senhaescrever = Entry(window)
         self.senhaescrever.config(show='*')
         self.senhaescrever.grid(column=1, row=7)
 
-        titulo = tk.Label(window, text='Log-in', font=('Arial Bold', 50))
+        titulo = Label(window, text='Log-in', font=('Arial Bold', 50))
         titulo.grid(column=1, row=0)
 
-        nome = tk.Label(window, text='Nome de usuário:', font=('Arial Bold', 20))
+        nome = Label(window, text='Nome de usuário:', font=('Arial Bold', 20))
         nome.grid(column=1, row=3)
 
-        senha = tk.Label(window, text='Senha:', font=('Arial Bold', 20))
+        senha = Label(window, text='Senha:', font=('Arial Bold', 20))
         senha.grid(column=1, row=6)
 
-        enter = tk.Button(window, text='Enter', command=submit)
+        enter = Button(window, text='Enter', command=self.submit)
         enter.grid(column=1, row=9)
 
 
@@ -38,10 +38,12 @@ class Login:
 
 
     def submit(self):
+        username, password = self.getvalues(self.nomeescrever, self.senhaescrever)
         print('Clicou submit')
-        username, password = getvalues(nomeescrever, senhaescrever)
         arquivo_users = open('users.pickle', 'rb')
+        print('Clicou submit2')
         users = pickle.load(arquivo_users)
+        print('Clicou submit3')
         arquivo_users.close()
         print(users)
         validusername = False
